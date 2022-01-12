@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TopicResource;
 use App\Models\Post;
 use App\Models\Topic;
 use Illuminate\Http\Request;
@@ -36,6 +37,8 @@ class TopicController extends Controller
 
         $topic->save();
         $topic->posts()->save($post);
+
+        return new TopicResource($topic);
     }
 
     /**
