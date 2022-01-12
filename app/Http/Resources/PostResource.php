@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\PostResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TopicResource extends JsonResource
+class PostResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,10 +18,9 @@ class TopicResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'title' => $this->title,
+            'body' => $this->body,
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
-            'posts' => PostResource::collection($this->posts),
             'user' => $this->user
         ];
     }
