@@ -13,13 +13,14 @@ class AuthController extends Controller
     public function register(StoreUpdateUser $request) {
 
         $user = User::create([
-            'email' => $request->email,
             'name' => $request->name,
+            'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
 
         if(!$token = auth()->attempt($request->only(['email', 'password']))) {
-            return abort(401);
+            return abort(402);
+     
         };
 
         return (new UserResource($request->user()))->additional([
