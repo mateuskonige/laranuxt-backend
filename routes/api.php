@@ -28,4 +28,4 @@ Route::post('/logout', [AuthController::class, 'logout']);
 /**
  * Topics
  */
-Route::apiResource('topics', TopicController::class)->middleware('auth:api');
+Route::apiResource('topics', TopicController::class);

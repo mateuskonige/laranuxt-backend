@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class TopicController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except("index");
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +22,8 @@ class TopicController extends Controller
      */
     public function index()
     {
-        //
+        $topics = Topic::LatestFirst()->paginate(5);
+        return TopicResource::collection($topics);
     }
 
     /**
