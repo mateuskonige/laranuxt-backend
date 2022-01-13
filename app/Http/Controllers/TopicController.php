@@ -12,7 +12,7 @@ class TopicController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->except("index");
+        $this->middleware('auth:api')->except(['index', 'show']);
     }
     
     /**
@@ -22,7 +22,7 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $topics = Topic::LatestFirst()->paginate(5);
+        $topics = Topic::LatestFirst()->paginate(3);
         return TopicResource::collection($topics);
     }
 
@@ -56,7 +56,8 @@ class TopicController extends Controller
      */
     public function show($id)
     {
-        //
+        $topic = Topic::where('id', $id)->firstOrFail();
+        return new TopicResource($topic);
     }
 
     /**
