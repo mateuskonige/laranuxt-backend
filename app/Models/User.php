@@ -43,6 +43,10 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    public function ownsTopic(Topic $topic) {
+        return $this->id === $topic->user->id;
+    }
+
     public function getJWTIdentifier()
     {
         // return the primary ey of the user - user id

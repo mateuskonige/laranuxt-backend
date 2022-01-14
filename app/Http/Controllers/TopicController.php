@@ -69,7 +69,12 @@ class TopicController extends Controller
      */
     public function update(StoreUpdateTopic $request, $id)
     {
-        //
+        $topic = Topic::where('id', $id)->firstOrFail();
+        
+        $this->authorize('update', $topic);
+        $topic->update($request->all());
+
+        return new TopicResource($topic);
     }
 
     /**
@@ -80,6 +85,11 @@ class TopicController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $topic = Topic::where('id', $id)->firstOrFail();
+        
+        $this->authorize('delete', $topic);
+        $topic->delete();
+
+        return response(null, 204);
     }
 }
